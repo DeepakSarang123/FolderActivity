@@ -9,13 +9,20 @@ public class DoAll {
 
 	public static void main(String args[]) throws java.io.IOException, ParseException {
 
-		System.out.println("Enter path of file");
-		Scanner sc = new Scanner(System.in);
-		String param = sc.nextLine();
-		param = param.replace("\\", "\\\\");
+		System.out.println("Enter path of source file");
+		Scanner sc1 = new Scanner(System.in);
+		String src = sc1.nextLine();
+		src = src.replace("\\", "\\\\");
+		
+		System.out.println("Enter path of destination");
+		Scanner sc2 = new Scanner(System.in);
+		String dest = sc2.nextLine();
+		dest = dest.replace("\\", "\\\\");
 
-		System.out.println(param);
-		Path file = Paths.get(param);
+		/*System.out.println("Source path is: " + src);
+		System.out.println("Destination path is: " + dest);*/
+		
+		Path file = Paths.get(src);
 
 		String name = file.getFileName().toString();
 		System.out.println(name);
@@ -28,7 +35,9 @@ public class DoAll {
 		System.out.println("UUID is: " + uUID + "\n" + "MACID is: " + macID + "\n" + "DOP is: " + DOP);
 
 		MultiplyRenameAndZip obj = new MultiplyRenameAndZip();
-		obj.replicateFile(names, name);
+		obj.replicateFile(names, name, dest, src);
+		
+		
 	}
 
 }

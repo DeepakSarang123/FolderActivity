@@ -4,7 +4,7 @@ import com.chilkatsoft.CkTar;
 
 public class Zip_Action {
 
-	public void ZipIt(String repFileName)
+	public void ZipIt(String repFileName, String dest)
 
 	{
 
@@ -14,7 +14,7 @@ public class Zip_Action {
 		try {
 
 			System.setProperty("java.library.path",
-					"C:\\Users\\DEEPAK\\Documents\\chilkat-9.5.0-jdk8-x64\\chilkat.dll");
+					"C:\\Chilkat\\chilkat-9.5.0-jdk8-win32\\chilkat.dll");
 
 			System.loadLibrary("chilkat");
 
@@ -45,7 +45,7 @@ public class Zip_Action {
 		// Add a directory tree to be included in the output TAR archive:
 
 		boolean success = tar
-				.AddDirRoot("C:\\Users\\DEEPAK\\Documents\\Files to be converted\\Destination\\" + repFileName);
+				.AddDirRoot(dest + "\\" + repFileName);
 
 		if (success != true) {
 
@@ -59,8 +59,7 @@ public class Zip_Action {
 
 		// Note: You may use UNC paths, absolute, or relative paths.
 
-		success = tar.WriteTarGz(
-				"C:\\Users\\DEEPAK\\Documents\\Files to be converted\\Destination\\" + repFileName + ".tgz");
+		success = tar.WriteTarGz(dest + "\\" + repFileName + ".tgz");
 
 		if (success != true) {
 
@@ -68,6 +67,8 @@ public class Zip_Action {
 
 			return;
 
+		}else {
+			System.out.println("Zipping done");
 		}
 
 	}

@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class MultiplyRenameAndZip {
 
-	public static void replicateFile(String[] names, String name) throws IOException, ParseException {
+	public static void replicateFile(String[] names, String name, String dest, String src) throws IOException, ParseException {
 
 		System.out.println("Which paramter you want to change?");
 		Scanner sc1 = new Scanner(System.in);
@@ -21,7 +21,9 @@ public class MultiplyRenameAndZip {
 
 		IncrementParam inc = new IncrementParam();
 
-		Path refPath = Paths.get(name);
+		Path refPath = Paths.get(src);
+		//System.out.println(refPath);
+		//System.out.println(dest);
 
 		switch (param.toUpperCase()) {
 		case "MACID":
@@ -49,23 +51,23 @@ public class MultiplyRenameAndZip {
 
 				// create a copy of the dmp folder
 				FolderCopy fcp = new FolderCopy();
-				fcp.create(repFileName, refPath);
-				System.out.println("Folder creation done");
+				fcp.create(repFileName, refPath, dest);
+				
 
 				// copy contents to dest directory
 				ContentsCopy cp = new ContentsCopy();
-				cp.create(repFileName);
-				System.out.println("Files copy done");
+				cp.create(repFileName, src, dest);
+				
 
 				// Renaming the inside file
 				RenameFile rf = new RenameFile();
-				rf.rename(repFileName, name);
-				System.out.println("Renaming done");
+				rf.rename(repFileName, name, dest);
+				//System.out.println("Renaming done");
 
 				// zipping the folder
 				Zip_Action zip = new Zip_Action();
-				zip.ZipIt(repFileName);
-				System.out.println("Zipping done");
+				zip.ZipIt(repFileName, dest);
+				
 
 			}
 
@@ -73,7 +75,7 @@ public class MultiplyRenameAndZip {
 
 		case "UUID":
 			String uUID = names[0];
-			System.out.println("UUID is: " + uUID);
+			System.out.println("Initial UUID is: " + uUID);
 
 			// splitting 'mac' from macID
 			String hex_uuid = uUID.substring(3, uUID.length());
@@ -83,11 +85,11 @@ public class MultiplyRenameAndZip {
 
 				// increment uUID by calling incrementParam() function
 				hex_uuid = inc.incrementParam(hex_uuid);
+				System.out.println("Incremented UUID is: " + hex_uuid);
 
 				// create uUID
 				uUID = hex_uuid;
 				names[0] = uUID;
-				System.out.println(uUID);
 
 				// create the name of file
 				FileCreation fc = new FileCreation();
@@ -96,22 +98,22 @@ public class MultiplyRenameAndZip {
 
 				// copy to a folder
 				FolderCopy fcp = new FolderCopy();
-				fcp.create(repFileName, refPath);
+				fcp.create(repFileName, refPath,dest);
 				System.out.println("Folder creation done");
 
 				// copy contents to dest directory
 				ContentsCopy cp = new ContentsCopy();
-				cp.create(repFileName);
+				cp.create(repFileName, src, dest);
 				System.out.println("Files copy done");
 
 				// Renaming the inside file
 				RenameFile rf = new RenameFile();
-				rf.rename(repFileName, name);
+				rf.rename(repFileName, name, dest);
 				System.out.println("Renaming done");
 
 				// zipping the folder
 				Zip_Action zip = new Zip_Action();
-				zip.ZipIt(repFileName);
+				zip.ZipIt(repFileName, dest);
 				System.out.println("Zipping done");
 
 			}
@@ -120,7 +122,7 @@ public class MultiplyRenameAndZip {
 
 		case "DOP":
 			String dop = names[2];
-			System.out.println("DOP is: " + dop);
+			System.out.println("Initial DOP is: " + dop);
 
 			// splitting 'dat' from DOP
 			String hex_dop = dop.substring(3, dop.length());
@@ -145,22 +147,22 @@ public class MultiplyRenameAndZip {
 
 				// copy to a folder
 				FolderCopy fcp = new FolderCopy();
-				fcp.create(repFileName, refPath);
+				fcp.create(repFileName, refPath, dest);
 				System.out.println("Folder creation done");
 
 				// copy contents to dest directory
 				ContentsCopy cp = new ContentsCopy();
-				cp.create(repFileName);
+				cp.create(repFileName, src, dest);
 				System.out.println("Files copy done");
 
 				// Renaming the inside file
 				RenameFile rf = new RenameFile();
-				rf.rename(repFileName, name);
+				rf.rename(repFileName, name, dest);
 				System.out.println("Renaming done");
 
 				// zipping the folder
 				Zip_Action zip = new Zip_Action();
-				zip.ZipIt(repFileName);
+				zip.ZipIt(repFileName, dest);
 				System.out.println("Zipping done");
 
 			}

@@ -7,16 +7,16 @@ import org.apache.commons.io.FileUtils;
 
 public class ContentsCopy {
 
-	public void create(String repFileName) {
+	public void create(String repFileName, String src, String dest) {
 
-		String source = "C:\\Users\\DEEPAK\\Documents\\Files to be converted\\Source\\dc26959e49007f1a6b86d2fa34517383ee769e29_macB827EBF55071_dat2020-10-27-10-56-23_boxrpi_modARMv7Processorrev4(v7l)_34fc5249-3c9c-4283-9928888e-75331231.dmp";
-		File srcDir = new File(source);
+		File srcDir = new File(src);
 
-		String destination = "C:\\Users\\DEEPAK\\Documents\\Files to be converted\\Destination\\" + repFileName;
-		File destDir = new File(destination);
+		String Destination = dest + "\\" + repFileName;
+		File destDir = new File(Destination);
 
 		try {
 			FileUtils.copyDirectory(srcDir, destDir);
+			System.out.println("Files copy done");
 
 		} catch (IOException e) {
 			e.printStackTrace();
